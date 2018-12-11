@@ -36,15 +36,16 @@ export function movieReducer(state = initialState, action) {
         });
     } else if (action.type === UNSAVE_MOVIE) {
         let newSavedList = state.savedMovies.filter(movie => {
-            return movie.imdbID !== action.movie.imdbID;
+        return movie.imdbID !== action.movie.imdbID;
         })
         return Object.assign({}, state, {
             savedMovies: newSavedList
         });
-    }else if (action.type === SORT_MOVIES) {
-        let sortedMovies = movieSorter(state.savedMovies, action.sortParam);
+    } else if (action.type === SORT_MOVIES) {
+        const sortedMovies = movieSorter(state.savedMovies, action.sortParam);
+        //used spread operator for sorted movies and that fixed it....
         return Object.assign({}, state, {
-            savedMovies: sortedMovies
+            savedMovies: [ ...sortedMovies ]
         });
     }
     return state;
